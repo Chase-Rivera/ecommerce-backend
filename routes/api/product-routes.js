@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
   // be sure to include its associated Category and Tag data
   try {
     const allProdresults = await Product.findAll({
-       include: [{ model: Category }, { model: Tag }] 
+       include: [{ model: Category }, { model: Tag, through:{attributes:[]} }] 
       });
     res.status(200).json(allProdresults);
   } catch (err) {
@@ -23,7 +23,7 @@ router.get('/:id', async (req, res) => {
   // be sure to include its associated Category and Tag data
   try {
     const prodResults = await Product.findByPk(req.params.id, {
-      include: [{ model: Category }, { model: Tag }]
+      include: [{ model: Category }, { model: Tag, through:{attributes:[]} }]
     });
     if (!prodResults) {
       res.status(404).json({ message: 'No product with this id!' });
